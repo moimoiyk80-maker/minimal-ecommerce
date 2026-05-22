@@ -1,277 +1,427 @@
 import { useState, useEffect } from "react";
-import { products } from "./data/products";
-import ProductList from "./components/ProductList";
-import "./App.css";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  Routes,
+  Route,
+  useLocation
+} from "react-router-dom";
 
-const SORT_LABELS = {
-  default: "기본정렬",
-  low: "가격 낮은순",
-  high: "가격 높은순",
-};
+import {
+  AnimatePresence
+} from "framer-motion";
+
+import {
+  Search,
+  Sun,
+  Moon,
+  ShoppingBag,
+  X
+} from "lucide-react";
+
+import { products } from "./data/products";
+
+import ProductList from "./components/ProductList";
+import SkeletonCard from "./components/SkeletonCard";
+import FilterBar from "./components/FilterBar";
+import Header from "./components/Header";
+import Toast from "./components/Toast";
+import EmptyState from "./components/EmptyState";
+import PageWrapper from "./components/PageWrapper";
+import RecentlyViewed from "./components/RecentlyViewed";
+
+import { useCart } from "./context/CartContext";
+
+import ProductDetail from "./pages/ProductDetail";
+import CartPage from "./pages/CartPage";
+import NotFound from "./pages/NotFound";
+
+import useProducts from "./hooks/useProducts";
+import useScrollLock from "./hooks/useScrollLock";
+import useDebounce from "./hooks/useDebounce";
+
+import "./variables.css";
+import "./App.css";
 
 function App() {
+  
+  const location = useLocation(); 
+
+  const params = new URLSearchParams(
+    window.location.search
+  );
+
+  const [search, setSearch] = useState(
+    params.get("search") || ""
+  );
+
+  const debouncedSearch =
+  useDebounce(search, 300);
+
   const [filters, setFilters] = useState({
-    category: "전체",
-    color: "전체"
+    category:
+      params.get("category") || "전체",
+
+    color:
+      params.get("color") || "전체"
   });
-  
-  const [sort, setSort] = useState("default");
-  const [sortModalOpen, setSortModalOpen] = useState(false);
+
+  const [sort, setSort] = useState(
+    params.get("sort") || "default"
+  );
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!sortModalOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [sortModalOpen]);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1200);
 
-  const filteredProducts = products.filter(item => {
-    const categoryMatch =
-      filters.category === "전체" || item.category === filters.category;
-  
-    const colorMatch =
-      filters.color === "전체" || item.color === filters.color;
-  
-    return categoryMatch && colorMatch;
+    return () => clearTimeout(timer);
+  }, []);
+
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
   });
- 
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sort === "low") return Number(a.price) - Number(b.price);
-    if (sort === "high") return Number(b.price) - Number(a.price);
-    return 0;
-  });
-
-
-  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
+
+    if (darkMode) {
+
+      document.documentElement.classList.add(
+        "dark"
+      );
+
+      localStorage.setItem(
+        "theme",
+        "dark"
+      );
+
+    } else {
+
+      document.documentElement.classList.remove(
+        "dark"
+      );
+
+      localStorage.setItem(
+        "theme",
+        "light"
+      );
+    }
+
+  }, [darkMode]);
+
+  const SORT_LABELS = {
+    default: "기본정렬",
+    low: "가격 낮은순",
+    high: "가격 높은순"
+  };
+
+  const [sortModalOpen, setSortModalOpen] =
+    useState(false);
+
+  const { sortedProducts } = useProducts(
+      products,
+      filters,
+      sort,
+      debouncedSearch
+  );
+
+  const { toastMessage } = useCart();
+
+  useScrollLock(sortModalOpen);
+
+  useEffect(() => {
+
     const handleEsc = (e) => {
+
       if (e.key === "Escape") {
         setSortModalOpen(false);
-        setSelectedProduct(null);
       }
     };
-  
-    if (sortModalOpen || selectedProduct) {
-      window.addEventListener("keydown", handleEsc);
+
+    if (sortModalOpen) {
+      window.addEventListener(
+        "keydown",
+        handleEsc
+      );
     }
-  
+
     return () => {
-      window.removeEventListener("keydown", handleEsc);
+      window.removeEventListener(
+        "keydown",
+        handleEsc
+      );
     };
-  }, [sortModalOpen, selectedProduct]);
+
+  }, [sortModalOpen]);
+
+  useEffect(() => {
+
+    const query = new URLSearchParams();
+
+    if (filters.category !== "전체") {
+      query.set(
+        "category",
+        filters.category
+      );
+    }
+
+    if (filters.color !== "전체") {
+      query.set(
+        "color",
+        filters.color
+      );
+    }
+
+    if (sort !== "default") {
+      query.set("sort", sort);
+    }
+
+    if (search.trim()) {
+      query.set("search", search);
+    }
+
+    const queryString = query.toString();
+
+    const newUrl = queryString
+      ? `?${queryString}`
+      : window.location.pathname;
+
+    window.history.replaceState(
+      {},
+      "",
+      newUrl
+    );
+
+  }, [filters, sort, search]);
 
   return (
-    <div>
-      <h1>컬렉션</h1>
+    <>
+    <AnimatePresence mode="wait">
 
-      <div >
-        <div className="filter-container">
-          <h3>카테고리</h3>
-          <button className={filters.category === "전체" ? "active" : ""}
-                  onClick={() => setFilters({ ...filters, category: "전체" })}>전체</button>
-          <button className={filters.category === "상의" ? "active" : ""}
-                  onClick={() => setFilters({ ...filters, category: "상의" })}>상의</button>
-          <button className={filters.category === "하의" ? "active" : ""}
-                  onClick={() => setFilters({ ...filters, category: "하의" })}>하의</button>
-         </div>
-         <div className="filter-container">
-          <h3>색상</h3>
-          <button className={filters.color === "전체" ? "active" : ""}
-                  onClick={() => setFilters({ ...filters, color: "전체" })}>전체</button>
-          <button className={filters.color === "black" ? "active" : ""}
-                  onClick={() => setFilters({ ...filters, color: "black" })}>블랙</button>
-          <button className={filters.color === "white" ? "active" : ""}
-                  onClick={() => setFilters({ ...filters, color: "white" })}>화이트</button>
-          <button className={filters.color === "gray" ? "active" : ""}
-                  onClick={() => setFilters({ ...filters, color: "gray" })}>그레이</button>
-         </div>
+      <Routes
+        location={location}
+        key={location.pathname}
+      >
 
-         <div className="selected-filter-container">
-            
-            {/*<strong>선택된 필터 :</strong>*/}
+      <Route
+        path="/"
+        element={
+          <PageWrapper>
+          <div>
 
-            <AnimatePresence>
-              {filters.category !== "전체" && (
-                <motion.span
-                layout
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.2 }}
-                  style={{
-                    marginRight: "10px",
-                    padding: "5px 10px",
-                    backgroundColor:"#9ca3af",
-                    color:"#000",
-                    borderRadius: "20px",
-                    fontSize:"14px"
-                  }}
-                >
-                  카테고리 : {filters.category}
-                </motion.span>
-              )}
-              {filters.color !== "전체" && (
-                <motion.span
-                layout
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.2 }}
-                  style={{
-                    marginRight: "10px",
-                    padding: "5px 10px",
-                    backgroundColor:"#9ca3af",
-                    color:"#000",
-                    borderRadius: "20px",
-                    fontSize:"14px"
-                  }}
-                >
-                  색상 : {filters.color}
-                </motion.span>
-              )}
-            </AnimatePresence>
-            
+            <Header />
+
             <button
-              onClick={() => {
+              className="theme-toggle"
+              onClick={() =>
+                setDarkMode(!darkMode)
+              }
+            >
+              {darkMode ? (
+
+              <Sun size={18} />
+
+              ) : (
+
+              <Moon size={18} />
+
+              )}
+            </button>
+
+            <div className="sticky-controls">
+
+              <div className="search-wrap">
+
+                <div className="search-box">
+
+                <Search
+                  size={18}
+                  strokeWidth={2}
+                  className="search-icon"
+                />
+
+                  <input
+                    type="text"
+                    placeholder="상품 검색"
+                    value={search}
+                    onChange={(e) =>
+                      setSearch(e.target.value)
+                    }
+                    className="search-input"
+                  />
+
+                  {search && (
+
+                    <button
+                      className="search-clear"
+                      onClick={() => setSearch("")}
+                    >
+                      <X size={16} />
+                    </button>
+
+                  )}
+
+                </div>
+
+              </div>
+
+              <FilterBar
+                filters={filters}
+                setFilters={setFilters}
+                sort={sort}
+                setSort={setSort}
+                setSortModalOpen={
+                  setSortModalOpen
+                }
+                sortedProducts={sortedProducts}
+              />
+
+            </div>
+
+            {sortModalOpen && (
+
+              <div
+                className="sort-modal-backdrop"
+                role="presentation"
+                onClick={() =>
+                  setSortModalOpen(false)
+                }
+              >
+
+                <div
+                  className="sort-modal-sheet"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="sort-modal-title"
+                  onClick={(e) =>
+                    e.stopPropagation()
+                  }
+                >
+
+                  <div
+                    className="sort-modal-handle"
+                    aria-hidden
+                  />
+
+                  <p
+                    id="sort-modal-title"
+                    className="sort-modal-title"
+                  >
+                    정렬
+                  </p>
+
+                  <ul className="sort-modal-list">
+
+                    {[
+                      "default",
+                      "low",
+                      "high"
+                    ].map((key) => (
+
+                      <li key={key}>
+
+                        <button
+                          type="button"
+                          className={
+                            sort === key
+                              ? "sort-modal-item sort-modal-item--active"
+                              : "sort-modal-item"
+                          }
+                          onClick={() => {
+                            setSort(key);
+                            setSortModalOpen(false);
+                          }}
+                        >
+                          {SORT_LABELS[key]}
+                        </button>
+
+                      </li>
+
+                    ))}
+
+                  </ul>
+
+                  <button
+                    type="button"
+                    className="sort-modal-close"
+                    onClick={() =>
+                      setSortModalOpen(false)
+                    }
+                  >
+                    닫기
+                  </button>
+
+                </div>
+
+              </div>
+
+            )}
+
+            {loading ? (
+
+              <div className="cardflex">
+
+                {Array.from({
+                  length: 6
+                }).map((_, index) => (
+
+                  <SkeletonCard key={index} />
+
+                ))}
+
+              </div>
+
+            ) : sortedProducts.length === 0 ? (
+
+              <EmptyState
+              onReset={() => {
                 setFilters({
                   category: "전체",
                   color: "전체"
                 });
-                setSort("default"); 
+            
+                setSort("default");
+                setSearch("");
               }}
-            >
-              필터 초기화
-          </button>
-          
-              
+            />
 
-                      
-         </div>
+            ) : (
+             <>
+              <ProductList
+                products={sortedProducts}
+                search={search}
+              />
 
-         <div className="filter-footer"> 
-          <p>총 {sortedProducts.length}개 상품</p>  
-          {/*<h3>정렬</h3>*/}
-          <button type="button" onClick={() => setSortModalOpen(true)} 
-                  style={{    display: "flex",
-                           alignItems: "center"}}>
-            {SORT_LABELS[sort]} <svg width="20" height="20" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 16L6 10H18L12 16Z" fill="#000000"/></svg>
-          </button>
-         </div> 
-      </div>
+              <RecentlyViewed />  
+            </>           
 
-      {sortModalOpen && (
-        <div
-          className="sort-modal-backdrop"
-          role="presentation"
-          onClick={() => setSortModalOpen(false)}
-        >
-          <div
-            className="sort-modal-sheet"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="sort-modal-title"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="sort-modal-handle" aria-hidden />
-            <p id="sort-modal-title" className="sort-modal-title">
-              정렬
-            </p>
-            <ul className="sort-modal-list">
-              {(["default", "low", "high"]).map((key) => (
-                <li key={key}>
-                  <button
-                    type="button"
-                    className={
-                      sort === key
-                        ? "sort-modal-item sort-modal-item--active"
-                        : "sort-modal-item"
-                    }
-                    onClick={() => {
-                      setSort(key);
-                      setSortModalOpen(false);
-                    }}
-                  >
-                    {SORT_LABELS[key]}
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <button
-              type="button"
-              className="sort-modal-close"
-              onClick={() => setSortModalOpen(false)}
-            >
-              닫기
-            </button>
+            )}
+
           </div>
-        </div>
-      )}          
+          </PageWrapper> 
+        }
+      />
 
-      {sortedProducts.length === 0 ? (
-        <p style={{ marginTop: "20px" }}>
-          조건에 맞는 상품이 없습니다.
-        </p>
-      ) : (
-        <ProductList
-          products={sortedProducts}
-          onCardClick={setSelectedProduct}
-        />
-      )}
+      <Route
+        path="/product/:id"
+        element={<ProductDetail />}
+      />
+      <Route
+        path="/cart"
+        element={<CartPage />}
+      />  
+      <Route
+        path="*"
+        element={<NotFound />}
+      />   
 
-{selectedProduct && (
-      <div
-        onClick={() => setSelectedProduct(null)}
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundColor: "rgba(0,0,0,0.5)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <div
-          onClick={(e) => e.stopPropagation()}
-          style={{
-            background: "#fff",
-            padding: "20px",
-            width: "90%",
-            maxWidth: "400px",
-            borderRadius: "16px",
-            margin: "100px auto"
-          }}
-        >
-          <img
-            src={selectedProduct.image}
-            alt={selectedProduct.name}
-            style={{
-              width: "100%",
-              aspectRatio: "3 / 4",
-              objectFit: "cover",
-              borderRadius: "12px",
-              marginBottom: "16px"
-            }}
-          />
-          <h2 style={{color:"#08060d"}}>{selectedProduct.name}</h2>
-          <p style={{color:"#6b6375"}}>{selectedProduct.price}원</p>
-          <button onClick={() => setSelectedProduct(null)} style={{color:"#6b6375", marginTop:"10px"}}>닫기</button>
-        </div>
-      </div>
-    )}
+    </Routes>
 
-    </div>  
-    
+    </AnimatePresence>
+
+    <Toast message={toastMessage} />
+   </>
   );
-
-  
 }
 
 export default App;

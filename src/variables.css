@@ -1,0 +1,97 @@
+:root { 
+
+   /* colors */
+   --text: #333333;
+   --text-low: #494949;
+   --text-h: #111111;
+ 
+   --bg: #fff;
+   --border: #e5e4e7;
+
+   --button: #2c2c2c ;
+ 
+   --code-bg: #f4f3ec;
+ 
+   --accent: #aa3bff;
+ 
+   --accent-bg:
+     rgba(170, 59, 255, 0.1);
+ 
+   --accent-border:
+     rgba(170, 59, 255, 0.5);
+ 
+   --social-bg:
+     rgba(244, 243, 236, 0.5);
+ 
+   /* shadow */
+   --shadow:
+     rgba(0, 0, 0, 0.1)
+     0 10px 15px -3px;
+   
+   --box-shadow:
+     rgba(0, 0, 0, 0.06)
+     0 4px 20px;
+ 
+   /* typography */
+   --sans:
+     'Noto Sans KR', 
+     -apple-system, 
+     BlinkMacSystemFont,
+     sans-serif;
+
+   --serif:  
+     'Didot', 
+     'Bodoni MT', 
+     'Cinzel', 
+     serif;
+ 
+   --mono:
+     ui-monospace,
+     Consolas,
+     monospace;
+ 
+   /* spacing */
+   --space-2xs: 0.25rem;
+   --space-xs: 0.5rem;
+   --space-sm: 0.75rem;
+   --space-md: 1rem;
+   --space-lg: 1.5rem;
+ 
+   /* radius */
+   --radius-sm: 8px;
+   --radius-md: 14px;
+   --radius-lg: 20px;
+ }
+ 
+ :root.dark {
+ 
+   --text: #f8f8f8;
+   --text-low: #f2f2f2;
+   --text-h: #ffffff; 
+ 
+   --bg: #16171d;
+   --border: #2e303a;
+   
+   --button: #d2d2d2 ;
+ 
+   --code-bg: #1f2028;
+ 
+   --accent: #c084fc;
+ 
+   --accent-bg:
+     rgba(192, 132, 252, 0.15);
+ 
+   --accent-border:
+     rgba(192, 132, 252, 0.5);
+ 
+   --social-bg:
+     rgba(47, 48, 58, 0.5);
+ 
+   --shadow:
+     rgba(0, 0, 0, 0.4)
+     0 10px 15px -3px;
+
+   ----box-shadow: 
+     rgba(0, 0, 0, 0.25)
+     0 4px 20px;
+ }
