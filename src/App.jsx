@@ -27,6 +27,8 @@ import Toast from "./components/Toast";
 import EmptyState from "./components/EmptyState";
 import PageWrapper from "./components/PageWrapper";
 import RecentlyViewed from "./components/RecentlyViewed";
+import FavoriteSection
+from "./components/FavoriteSection";
 
 import { useCart } from "./context/CartContext";
 
@@ -395,7 +397,9 @@ function App() {
               />
 
               <RecentlyViewed />  
-            </>           
+              <FavoriteSection />
+            </>  
+                     
 
             )}
 

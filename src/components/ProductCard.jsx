@@ -3,8 +3,20 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import HighlightedText from "./HighlightedText";
+import {
+  Heart
+} from "lucide-react";
 
-function ProductCard({ item, search }) {
+import {
+  useFavorite
+} from "../context/FavoriteContext";
+
+function ProductCard({ item, id, search }) {
+  
+  const {
+    toggleFavorite,
+    isFavorite
+  } = useFavorite();  
 
   const [imageLoaded, setImageLoaded] =
   useState(false);
@@ -41,18 +53,52 @@ function ProductCard({ item, search }) {
       >
 
         <div className="product-image-wrap">
+            
+            <motion.button
+              className="favorite-button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
 
-        <img
-          src={item.image}
-          alt={item.name}
-          loading="lazy"
-          onLoad={() => setImageLoaded(true)}
-          className={
-            imageLoaded
-              ? "product-image loaded"
-              : "product-image"
-          }
-        />
+                toggleFavorite(item.id);
+              }}
+              whileTap={{
+                scale: 0.82
+              }}
+              whileHover={{
+                scale: 1.08
+              }}
+              transition={{
+                duration: 0.15
+              }}
+              aria-label="좋아요"
+            >
+              <Heart
+                  size={18}
+                  strokeWidth={
+                    isFavorite(item.id)
+                      ? 1.5
+                      : 2
+                  }
+                  fill={
+                    isFavorite(item.id)
+                      ? "var(--accent)"
+                      : "transparent"
+                  }
+                  color="var(--accent)"
+                />
+            </motion.button>
+            <img
+              src={item.image}
+              alt={item.name}
+              loading="lazy"
+              onLoad={() => setImageLoaded(true)}
+              className={
+                imageLoaded
+                  ? "product-image loaded"
+                  : "product-image"
+              }
+            />
 
         </div>
 
@@ -71,10 +117,10 @@ function ProductCard({ item, search }) {
             {item.price.toLocaleString()}원
           </p>
 
-        </div>
+        </div>        
 
        </motion.div>
-
+       
     </Link>
   );
 }

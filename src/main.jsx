@@ -6,8 +6,11 @@ import {
 import {
   CartProvider
 } from "./context/CartContext";
+import {
+  FavoriteProvider
+} from "./context/FavoriteContext";
 
-import App from "./App"; /*App.jsx*/
+import App from "./App"; 
 import "./index.css";
 
 ReactDOM.createRoot(
@@ -15,9 +18,11 @@ ReactDOM.createRoot(
 ).render(
   <React.StrictMode>
     <BrowserRouter>
-     <CartProvider>
-      <App />
-     </CartProvider>
+      <FavoriteProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </FavoriteProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

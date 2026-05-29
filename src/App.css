@@ -66,7 +66,7 @@
   border:
     1px solid var(--border);
 
-  border-radius: 100vh;
+  border-radius: 999px;
 
   background: var(--bg);
 
@@ -199,8 +199,6 @@
 
 .cart-remove {
   margin-top: 10px;
-  /* background: var(--button); */
-  /* color: var(--bg); */
   padding: 5px 12px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--button);
@@ -305,7 +303,7 @@
   color:var(--text-h);
   border-radius: 16px 16px 0 0;
   box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.12);
-  animation: sortSheetIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: sortSheetIn 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes sortSheetIn {
@@ -381,8 +379,6 @@
   cursor: pointer;
   border: none;
 }
-
-button path{ fill:var(--text);}
 
 button{
   background-color: rgba(0, 0, 0, 0);
@@ -507,7 +503,7 @@ button.active {
   margin-top: 80px;
 }
 
-.recent-header {
+.recent-header,.section-head{
   margin-bottom: 16px;
 }
 
@@ -600,19 +596,6 @@ button.active {
 }
 
 .detail-layout{
-  /*display: grid;
-
-  grid-template-columns:
-    minmax(320px, 480px)
-    minmax(320px, 480px);
-
-  justify-content: center;
-
-  gap: 48px;
-
-  max-width: 1100px;
-
-  margin: 24px auto 0;*/
   margin-top: 24px 
 }
 
@@ -749,4 +732,7 @@ button.active {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }  
+  .theme-toggle{
+    right:calc((100% - 1126px) / 2);  
+  }
 }

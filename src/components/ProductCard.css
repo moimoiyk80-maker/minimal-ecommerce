@@ -1,4 +1,5 @@
 .product-card {
+  
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
 
@@ -20,6 +21,7 @@
 }
 
 .product-image-wrap {
+  position: relative;
   overflow: hidden;  
   background: #f3f3f3;
 }
@@ -36,7 +38,7 @@
   transform: scale(1.02);
 
   transition:
-    opacity 0.45s ease,
+    opacity 0.45s ease, 
     transform 0.45s ease;
 }
 
@@ -66,3 +68,35 @@
   font-size: 14px;
   color: var(--text-low);
 }
+
+.favorite-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  width: 44px;
+  height: 44px;
+
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  z-index: 5;
+}
+
+.favorite-button:hover {
+  transform: scale(1.08);
+}
+
+.favorite-button svg {
+  transition:
+  fill 0.2s ease,
+  stroke 0.2s ease,
+  color 0.2s ease,
+  transform 0.2s ease;
+}
+

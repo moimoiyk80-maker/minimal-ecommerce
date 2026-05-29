@@ -30,7 +30,7 @@
     position: relative;
     overflow: hidden;
     height: 18px;
-    border-radius: 100vh;
+    border-radius: 999px;
   
     background:
       linear-gradient(
@@ -42,7 +42,7 @@
   
     background-size: 200% 100%;
   
-    animation: skeleton-loading 1.2s infinite;
+    animation: skeleton-loading 1.2s infinite; 
   }
 
   .skeleton-content {
