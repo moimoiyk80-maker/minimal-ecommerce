@@ -265,6 +265,8 @@ function App() {
 
               </div>
 
+             </div> 
+
               <FilterBar
                 filters={filters}
                 setFilters={setFilters}
@@ -276,7 +278,7 @@ function App() {
                 sortedProducts={sortedProducts}
               />
 
-            </div>
+            
 
             {sortModalOpen && (
 

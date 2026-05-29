@@ -62,5 +62,21 @@ export const products = [
       category: "하의",
       color: "black",
       image: "/images/products/product8.jpg"
+    },
+    {
+      id: 9,
+      name: "와이드 슬랙스",
+      price: 59000,
+      category: "상의",
+      color: "gray",
+      image: "/images/products/product9.jpg"
+    },
+    {
+      id: 10,
+      name: "기본 반팔 티셔츠",
+      price: 19000,
+      category: "하의",
+      color: "black",
+      image: "/images/products/product10.jpg"
     }
   ];

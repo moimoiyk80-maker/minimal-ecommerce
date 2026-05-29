@@ -6,7 +6,8 @@ function Header() {
 
   const { cartItems } = useCart();
 
-  const totalCount = cartItems.reduce(
+  const cartCount =
+  cartItems.reduce(
     (acc, item) =>
       acc + item.quantity,
     0
@@ -31,15 +32,13 @@ function Header() {
         <ShoppingBag
           size={20}
           strokeWidth={2}
-        /> Cart
+        />
         </span>
 
-        {totalCount > 0 && (
-
-          <span className="cart-badge"> 
-            {totalCount}
+        {cartCount > 0 && (
+          <span className="cart-badge">
+            {cartCount}
           </span>
-
         )}
 
       </Link>

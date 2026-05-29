@@ -51,7 +51,7 @@ function RecentlyViewed() {
               </p>
 
               <p className="recent-price">
-                {item.price}원
+                {item.price.toLocaleString()}원
               </p>
 
             </div>

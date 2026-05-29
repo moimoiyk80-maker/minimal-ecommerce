@@ -8,10 +8,23 @@ import { useCart } from "../context/CartContext";
 import PageWrapper from "../components/PageWrapper";
 import useRecentlyViewed
 from "../hooks/useRecentlyViewed";
+import { ArrowLeft, ShoppingBag } from "lucide-react";
 
 function ProductDetail() {
 
   const { id } = useParams();
+
+  const {
+    addToCart,
+    cartItems
+  } = useCart();
+
+  
+
+  const {
+    addRecentlyViewed
+  } = useRecentlyViewed();
+
 
   const product = products.find(
     (item) => item.id === Number(id)
@@ -24,14 +37,16 @@ function ProductDetail() {
     useState("M");
 
     const [selectedColor, setSelectedColor] =
-    useState(product.color);
+  useState(product?.color || "black");
 
-    const { addToCart } = useCart();
+  const cartCount =
+  cartItems.reduce(
+    (acc, item) =>
+      acc + item.quantity,
+    0
+  );
 
-    const {
-      addRecentlyViewed
-    } = useRecentlyViewed();
-
+    
     const totalPrice =
     product.price * quantity; 
 
@@ -61,12 +76,33 @@ function ProductDetail() {
    <PageWrapper>
     <div className="detail-page">
 
-      <Link
-        to="/"
-        className="detail-back"
-      >
-        ← 돌아가기
-      </Link>
+      <div className="detail-topbar sticky-controls">
+        
+        <Link
+          to="/"
+          className="detail-icon-button"
+          aria-label="뒤로가기"
+        >
+          <ArrowLeft size={20} />
+        </Link>
+
+        <Link
+          to="/cart"
+          className="detail-cart-button"
+          aria-label="장바구니"
+        >
+
+          <ShoppingBag size={20} />
+
+          {cartCount > 0 && (
+            <span className="cart-badge">
+              {cartCount}
+            </span>
+          )}
+
+        </Link>
+
+      </div>
 
       <div className="detail-layout">
 
@@ -80,12 +116,12 @@ function ProductDetail() {
 
         <div className="detail-info">
 
-          <h1>
+          <h2>
             {product.name}
-          </h1>
+          </h2>
 
           <p className="detail-price">
-            {product.price}원
+            {product.price.toLocaleString()}원
           </p>
 
           <p className="detail-desc">
@@ -180,11 +216,15 @@ function ProductDetail() {
 
             </div>
 
-            </div>
+            </div>            
 
-            <p className="detail-total">
-            총 금액 : {totalPrice}원
-            </p>
+        </div>
+
+        <div className="detail-bottom-sticky">
+          <div className="detail-bottom">
+              <p className="detail-total">
+              총 금액 : {totalPrice.toLocaleString()}원
+              </p>
 
             <button
                 className="detail-buy"
@@ -198,9 +238,9 @@ function ProductDetail() {
                 }
                 >
                 장바구니 담기
-                </button>
-
-        </div>
+             </button>
+           </div> 
+         </div>     
 
       </div>
 

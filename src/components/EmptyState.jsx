@@ -32,7 +32,7 @@ function EmptyState({ onReset }) {
 
       <p>
         검색어나 필터를 변경해서
-        다른 상품을 찾아보세요.
+        상품을 찾아보세요.
       </p>
 
       <button

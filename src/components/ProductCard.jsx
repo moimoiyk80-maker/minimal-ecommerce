@@ -68,7 +68,7 @@ function ProductCard({ item, search }) {
         </p>
 
           <p className="product-price">
-            {item.price}원
+            {item.price.toLocaleString()}원
           </p>
 
         </div>
