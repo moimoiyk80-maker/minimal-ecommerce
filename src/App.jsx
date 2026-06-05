@@ -19,6 +19,8 @@ import {
 
 import { products } from "./data/products";
 
+import ScrollToTop
+from "./components/ScrollToTop";
 import ProductList from "./components/ProductList";
 import SkeletonCard from "./components/SkeletonCard";
 import FilterBar from "./components/FilterBar";
@@ -198,6 +200,8 @@ function App() {
 
   return (
     <>
+     <ScrollToTop />
+     
     <AnimatePresence mode="wait">
 
       <Routes

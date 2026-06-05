@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import PageWrapper from "../components/PageWrapper";
-import { ArrowLeft} from "lucide-react";
+import { ArrowLeft,  ShoppingBag} from "lucide-react";
 
 function CartPage() {
 
@@ -11,6 +11,13 @@ function CartPage() {
         updateQuantity
       } = useCart();
 
+  const totalItems =
+      cartItems.reduce(
+        (acc, item) =>
+          acc + item.quantity,
+        0
+      );
+ 
   const totalPrice = cartItems.reduce(
     (acc, item) =>
       acc + item.price * item.quantity,
@@ -20,22 +27,51 @@ function CartPage() {
   if (cartItems.length === 0) {
 
     return (
-      <PageWrapper> 
-      <div className="cart-empty sticky-controls">        
+      <PageWrapper>
+  
+        <div className="cart-empty">
+  
+         <div className="cart-header sticky-controls">        
 
-        <Link
-          to="/"
-          className="detail-icon-button"
-          aria-label="뒤로가기"
-        >
-          <ArrowLeft size={20} />
-        </Link>
+            <Link
+              to="/"
+              className="detail-icon-button"
+              aria-label="뒤로가기"
+            >
+              <ArrowLeft size={20} />
+            </Link>
 
-        <h2>
-          장바구니가 비어 있습니다.
-        </h2>
+            <h1>Cart</h1>
 
-      </div>
+          </div> 
+  
+          <div className="cart-empty-content">
+  
+            <ShoppingBag
+              size={44}
+              strokeWidth={1.8}
+              className="cart-empty-icon"
+            />
+  
+            <h2>
+              장바구니가 비어 있습니다
+            </h2>
+  
+            <p>
+              마음에 드는 상품을 담아보세요.
+            </p>
+  
+            <Link
+              to="/"
+              className="cart-empty-button"
+            >
+              쇼핑 계속하기
+            </Link>
+  
+          </div>
+  
+        </div>
+  
       </PageWrapper>
     );
   }
@@ -153,19 +189,43 @@ function CartPage() {
 
       </div>
     
-       <div className="detail-bottom-sticky">
-        <div className="cart-total">
+        <div className="cart-summary-sticky">
 
-          <p>
-            총 금액
-          </p>
+          <div className="cart-summary">
 
-          <strong>
-            {totalPrice.toLocaleString()}원
-          </strong>
+            <div className="cart-summary-top">
+
+              <span>
+                총 상품 수
+              </span>
+
+              <strong>
+                {totalItems}개
+              </strong>
+
+            </div>
+
+            <div className="cart-summary-price">
+              
+              <span>
+                총 합계 금액
+              </span>
+
+              <strong>
+                {totalPrice.toLocaleString()}원
+              </strong>
+
+            </div>
+
+            <button
+              className="cart-order-button"
+            >
+              주문하기
+            </button>
+
+          </div>
 
         </div>
-       </div> 
 
     </div>
    </PageWrapper> 

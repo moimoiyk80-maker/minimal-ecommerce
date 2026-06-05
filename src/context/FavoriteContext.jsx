@@ -69,7 +69,7 @@ import {
     );
   }
   
-  export function useFavorite() {
+  export function useFavorites() {
   
     return useContext(
       FavoriteContext

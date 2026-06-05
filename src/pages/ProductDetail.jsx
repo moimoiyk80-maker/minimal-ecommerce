@@ -9,6 +9,8 @@ import PageWrapper from "../components/PageWrapper";
 import useRecentlyViewed
 from "../hooks/useRecentlyViewed";
 import { ArrowLeft, ShoppingBag } from "lucide-react";
+import RelatedProducts
+from "../components/RelatedProducts";
 
 function ProductDetail() {
 
@@ -29,6 +31,13 @@ function ProductDetail() {
   const product = products.find(
     (item) => item.id === Number(id)
   );
+
+  const recommendedProducts =
+  products
+    .filter(
+      (item) => item.id !== product.id
+    )
+    .slice(0, 4);
 
   const [quantity, setQuantity] =
   useState(1);
@@ -243,6 +252,10 @@ function ProductDetail() {
          </div>     
 
       </div>
+
+      <RelatedProducts
+        products={recommendedProducts}
+      />
 
     </div>
    </PageWrapper> 

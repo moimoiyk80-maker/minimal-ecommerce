@@ -8,15 +8,16 @@ import {
 } from "lucide-react";
 
 import {
-  useFavorite
+  useFavorites
 } from "../context/FavoriteContext";
 
 function ProductCard({ item, id, search }) {
   
   const {
+    favorites,
     toggleFavorite,
     isFavorite
-  } = useFavorite();  
+  } = useFavorites();  
 
   const [imageLoaded, setImageLoaded] =
   useState(false);
@@ -73,6 +74,7 @@ function ProductCard({ item, id, search }) {
               }}
               aria-label="좋아요"
             >
+              
               <Heart
                   size={18}
                   strokeWidth={

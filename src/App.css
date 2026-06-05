@@ -132,6 +132,15 @@
   transform: scale(1.08);
 }
 
+@media (max-width: 375px) {
+
+  .search-clear { 
+    position: absolute;
+    right: 8px;
+  }
+
+}
+
 .sticky-controls {
   position: sticky;
 
@@ -216,8 +225,9 @@
 .cart-quantity button {
   width: 28px;
   height: 28px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--button);
+  border-radius:0;
+  border: 1px solid var(--border);
+  padding: 0;
 }
 
 .toast {
@@ -246,6 +256,25 @@
   font-size: 14px;
 }
 
+@media (max-width: 375px) {
+
+  .filter-container {
+  
+    overflow-x: auto;
+
+    flex-wrap: nowrap;
+  
+    white-space: nowrap;
+  
+    scrollbar-width: none;
+  }
+  
+  .filter-container::-webkit-scrollbar {
+    display: none;
+  }
+
+}
+
 .filter-container h3{
   font-size: 14px;
 }
@@ -272,6 +301,7 @@
   color:var(--bg);
   border-radius: var(--radius-lg);
   font-size:14px;
+  flex-shrink: 0;
 }
 
 .sort-modal-backdrop {
@@ -503,7 +533,7 @@ button.active {
   margin-top: 80px;
 }
 
-.recent-header,.section-head{
+.recent-header{
   margin-bottom: 16px;
 }
 
@@ -735,4 +765,123 @@ button.active {
   .theme-toggle{
     right:calc((100% - 1126px) / 2);  
   }
+}
+
+.cart-empty-content {
+
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  gap: 16px;
+
+  margin-top: 120px;
+}
+
+.cart-empty-icon {
+
+  opacity: 0.6;
+}
+
+.cart-empty-content p {
+
+  color: var(--text);
+
+  opacity: 0.7;
+}
+
+.cart-empty-button {
+
+  margin-top: 8px;
+
+  padding: 12px 20px;
+
+  border-radius: 999px;
+
+  text-decoration: none;
+
+  background: var(--accent);
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cart-summary-sticky {
+
+  position: sticky;
+
+  bottom: 0;
+
+  padding: 16px 0;
+
+  background: var(--bg);
+
+  border-top: 1px solid var(--border);
+
+  z-index: 10;
+}
+
+.cart-summary {
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.cart-summary-top {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.cart-summary-price {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.cart-summary-price strong {
+   font-size: 1.25rem;
+}
+
+.cart-order-button {
+
+  width: 100%;
+
+  height: 52px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: var(--accent);
+
+  color: white;
+
+  font-size: 0.95rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: opacity 0.2s ease;
+}
+
+.cart-order-button:hover {
+
+  opacity: 0.9;
 }
