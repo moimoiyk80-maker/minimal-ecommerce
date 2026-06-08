@@ -1,16 +1,172 @@
-# React + Vite
+# 🛍️ Minimal Ecommerce
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> 사용자 경험(UX)과 컴포넌트 재사용성을 중심으로 설계한 React 기반 커머스 UI 프로젝트
 
-Currently, two official plugins are available:
+실제 커머스 서비스에서 자주 사용되는 검색, 필터링, 관심 상품, 최근 본 상품, 장바구니 기능을 구현하며 상태 관리 구조와 인터랙션 품질에 집중한 프로젝트입니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🎯 프로젝트 목표
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+이 프로젝트는 단순한 상품 목록 구현이 아니라 사용자가 상품을 탐색하고 비교하는 과정에서 발생하는 UX 흐름을 개선하는 것을 목표로 했습니다.
 
-## Expanding the ESLint configuration
+특히 다음 세 가지에 집중했습니다.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 사용자가 현재 상태를 직관적으로 이해할 수 있는 UI
+- 반복되는 UI 구조를 재사용 가능한 컴포넌트로 설계
+- 검색 및 필터링 과정에서 발생하는 불필요한 렌더링 최소화
+
+---
+
+## 🛠 Tech Stack
+
+- React
+- Vite
+- React Router DOM
+- Context API
+- Framer Motion
+- CSS Variables
+- Local Storage
+
+---
+
+## 🚀 주요 기능
+
+### 상품 탐색
+
+- 상품 검색
+- 검색어 하이라이팅
+- 카테고리 필터
+- 컬러 필터
+- 가격 정렬
+
+### 상품 상세
+
+- 옵션 선택
+- 수량 선택
+- 총 금액 계산
+- 관련 상품 추천
+
+### 장바구니
+
+- 상품 추가 및 삭제
+- 실시간 카트 뱃지
+- 총 결제 금액 계산
+
+### 사용자 편의 기능
+
+- 최근 본 상품
+- 관심 상품
+- 다크 모드
+- 반응형 레이아웃
+
+---
+
+## ✨ UX 중심 설계
+
+### Skeleton UI
+
+상품 로딩 과정에서 빈 화면 대신 스켈레톤 UI를 제공하여 사용자가 레이아웃 구조를 먼저 인지할 수 있도록 했습니다.
+
+Shimmer 애니메이션을 적용해 로딩 상태를 자연스럽게 전달했습니다.
+
+### 검색어 하이라이팅
+
+검색 결과에서 입력한 키워드를 강조 표시하여 원하는 상품을 빠르게 찾을 수 있도록 구현했습니다.
+
+### 실시간 상태 피드백
+
+장바구니 수량을 실시간 뱃지로 제공하여 사용자가 현재 상태를 즉시 확인할 수 있도록 설계했습니다.
+
+### 일관된 인터랙션
+
+버튼, 필터 칩, 상품 카드에 동일한 모션 규칙을 적용하여 서비스 전반의 인터랙션 경험을 통일했습니다.
+
+---
+
+## ⚡ 성능 최적화
+
+### useDebounce
+
+검색 입력 시 발생하는 연속적인 상태 업데이트를 줄이기 위해 커스텀 `useDebounce` 훅을 적용했습니다.
+
+이를 통해 불필요한 필터링 연산과 렌더링을 최소화했습니다.
+
+### useMemo
+
+상품 검색, 필터링, 정렬 결과를 메모이제이션하여 동일한 연산이 반복 실행되지 않도록 구성했습니다.
+
+### Lazy Loading
+
+상품 이미지에 Lazy Loading을 적용하여 초기 로딩 시 네트워크 비용과 렌더링 비용을 줄였습니다.
+
+---
+
+## 📐 구조 설계
+
+### Context API 기반 상태 관리
+
+장바구니와 관심 상품을 각각 독립된 Context로 분리하여 관리했습니다.
+
+- CartContext
+- FavoriteContext
+
+이를 통해 상태 변경 범위를 명확하게 유지하고 컴포넌트 간 데이터 전달을 단순화했습니다.
+
+### 공통 컴포넌트 추상화
+
+다음 영역은 서로 다른 데이터를 사용하지만 동일한 UI 구조를 가지고 있습니다.
+
+- 최근 본 상품
+- 관심 상품
+- 추천 상품
+
+이를 `ProductCarouselSection` 컴포넌트로 추상화하여 중복 코드를 제거하고 재사용성을 높였습니다.
+
+---
+
+## 📱 Responsive Design
+
+다양한 화면 크기에서 일관된 사용 경험을 제공할 수 있도록 반응형 레이아웃을 적용했습니다.
+
+- Mobile
+- Tablet
+- Desktop
+
+특히 320px 환경까지 확인하며 레이아웃이 깨지지 않도록 조정했습니다.
+
+---
+
+## 📝 프로젝트를 진행하며
+
+이번 프로젝트에서는 처음 사용하는 AI 기반 개발 도구(Cursor)를 활용해 개발을 진행했습니다.
+
+도구가 생성한 코드를 그대로 사용하는 대신 구조적 문제나 상태 관리 흐름을 직접 검토하고 수정하며 React 컴포넌트 설계에 대한 이해를 높일 수 있었습니다.
+
+또한 기능 구현 자체보다 사용자가 현재 상태를 쉽게 이해할 수 있는 인터랙션과 일관된 UI 경험을 설계하는 과정이 서비스 품질에 큰 영향을 준다는 점을 다시 확인할 수 있었습니다.
+
+---
+
+## 📸 Preview
+
+### Main Page
+
+![Main](./readme/main.jpg)
+
+### Product Detail
+
+![Detail](./readme/detail.jpg)
+
+### Cart
+
+![Cart](./readme/cart.jpg)
+
+### Dark Mode
+
+![Dark Mode](./readme/darkmode.jpg)
+
+---
+
+## 🔗 Live Demo
+
+배포 후 링크 추가
