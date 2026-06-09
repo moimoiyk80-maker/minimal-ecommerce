@@ -169,7 +169,7 @@ Shimmer 애니메이션을 적용해 로딩 상태를 자연스럽게 전달했�
 
 ## 🔗 Live Demo
 
-배포 후 링크 추가
+http://minimal-ecommerce-psi.vercel.app
 
 ## 📌 Notes
 
