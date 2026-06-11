@@ -151,19 +151,19 @@ Shimmer 애니메이션을 적용해 로딩 상태를 자연스럽게 전달했�
 
 ### Main Page
 
-![Main](./readme/main.jpg)
+![Main](./readme/main.png)
 
 ### Product Detail
 
-![Detail](./readme/detail.jpg)
+![Detail](./readme/detail.png)
 
 ### Cart
 
-![Cart](./readme/cart.jpg)
+![Cart](./readme/cart.png)
 
 ### Dark Mode
 
-![Dark Mode](./readme/darkmode.jpg)
+![Dark Mode](./readme/darkmode.png)
 
 ---
 
