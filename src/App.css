@@ -733,10 +733,15 @@ button.active {
 .cart-header{
   display: flex;
   align-items: center;
+  padding: 12px 0;
 }
 
-.cart-header h1{
+.cart-header h2{
   margin-left: calc(40% - 40px);
+  color: var(--text-h);
+    text-decoration: none;
+    font-family: var(--serif);
+    margin-bottom: 0;
  }
 
 .cart-item{
