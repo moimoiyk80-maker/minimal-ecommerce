@@ -1,36 +1,57 @@
-# 🛍️ Minimal Ecommerce
+# Minimal Ecommerce
 
-> 사용자 경험(UX)과 컴포넌트 재사용성을 중심으로 설계한 React 기반 커머스 UI 프로젝트
+> React를 활용해 상품 탐색, 선택 상태와 장바구니 흐름을 직접 구현한 반응형 커머스 UI 프로젝트
 
-실제 커머스 서비스에서 자주 사용되는 검색, 필터링, 관심 상품, 최근 본 상품, 장바구니 기능을 구현하며 상태 관리 구조와 인터랙션 품질에 집중한 프로젝트입니다.
+## Main Page
+
+![Main](./readme/main.png)
+
+## Project Links
+
+- [Live Demo](https://minimal-ecommerce-psi.vercel.app)
+- [View Case Study](./docs/case-study.md)
 
 ---
 
-## 🎯 프로젝트 목표
+## Project Overview
 
-이 프로젝트는 단순한 상품 목록 구현이 아니라 사용자가 상품을 탐색하고 비교하는 과정에서 발생하는 UX 흐름을 개선하는 것을 목표로 했습니다.
+Minimal Ecommerce는 상품 검색과 필터링, 상세 옵션 선택, 관심 상품, 최근 본 상품과 장바구니 흐름을 
+React로 구현한 반응형 커머스 UI 프로젝트입니다.
+
+정적인 화면 제작을 넘어 사용자의 선택에 따라 UI와 데이터가 어떻게 변화하는지 직접 구현하며, 
+디자인과 인터랙션을 코드로 연결하는 데 집중했습니다.
+
+## 프로젝트 목표
+
+상품 목록을 보여주는 정적인 화면에서 확장해, 
+검색·필터·상세 옵션과 장바구니 상태가 하나의 사용자 흐름으로 연결되는 
+커머스 UI를 구현하는 것을 목표로 했습니다.
 
 특히 다음 세 가지에 집중했습니다.
 
-- 사용자가 현재 상태를 직관적으로 이해할 수 있는 UI
-- 반복되는 UI 구조를 재사용 가능한 컴포넌트로 설계
-- 검색 및 필터링 과정에서 발생하는 불필요한 렌더링 최소화
+- 사용자가 검색 조건과 선택 상태를 쉽게 인지할 수 있는 UI
+- 상품 탐색부터 상세 확인과 장바구니까지 이어지는 인터랙션
+- 반복되는 상품 UI를 일관되게 관리할 수 있는 공통 컴포넌트 구조
 
 ---
 
-## 🛠 Tech Stack
+## Preview
 
-- React
-- Vite
-- React Router DOM
-- Context API
-- Framer Motion
-- CSS Variables
-- Local Storage
+### Product Detail
+
+![Detail](./readme/detail.png)
+
+### Cart
+
+![Cart](./readme/cart.png)
+
+### Dark Mode
+
+![Dark Mode](./readme/darkmode.png)
 
 ---
 
-## 🚀 주요 기능
+## 주요 기능
 
 ### 상품 탐색
 
@@ -62,7 +83,7 @@
 
 ---
 
-## ✨ UX 중심 설계
+## UX 중심 설계
 
 ### Skeleton UI
 
@@ -84,7 +105,7 @@ Shimmer 애니메이션을 적용해 로딩 상태를 자연스럽게 전달했�
 
 ---
 
-## ⚡ 성능 최적화
+## 성능 최적화
 
 ### useDebounce
 
@@ -102,7 +123,7 @@ Shimmer 애니메이션을 적용해 로딩 상태를 자연스럽게 전달했�
 
 ---
 
-## 📐 구조 설계
+## 구조 설계
 
 ### Context API 기반 상태 관리
 
@@ -125,7 +146,7 @@ Shimmer 애니메이션을 적용해 로딩 상태를 자연스럽게 전달했�
 
 ---
 
-## 📱 Responsive Design
+## Responsive Design
 
 다양한 화면 크기에서 일관된 사용 경험을 제공할 수 있도록 반응형 레이아웃을 적용했습니다.
 
@@ -137,41 +158,29 @@ Shimmer 애니메이션을 적용해 로딩 상태를 자연스럽게 전달했�
 
 ---
 
-## 📝 프로젝트를 진행하며
+## Tech Stack
+
+- React
+- Vite
+- React Router DOM
+- Context API
+- Framer Motion
+- CSS Variables
+- Local Storage
+
+---
+
+## 프로젝트를 진행하며
 
 이번 프로젝트에서는 처음 사용하는 AI 기반 개발 도구(Cursor)를 활용해 개발을 진행했습니다.
-
-도구가 생성한 코드를 그대로 사용하는 대신 구조적 문제나 상태 관리 흐름을 직접 검토하고 수정하며 React 컴포넌트 설계에 대한 이해를 높일 수 있었습니다.
-
-또한 기능 구현 자체보다 사용자가 현재 상태를 쉽게 이해할 수 있는 인터랙션과 일관된 UI 경험을 설계하는 과정이 서비스 품질에 큰 영향을 준다는 점을 다시 확인할 수 있었습니다.
-
----
-
-## 📸 Preview
-
-### Main Page
-
-![Main](./readme/main.png)
-
-### Product Detail
-
-![Detail](./readme/detail.png)
-
-### Cart
-
-![Cart](./readme/cart.png)
-
-### Dark Mode
-
-![Dark Mode](./readme/darkmode.png)
+도구가 생성한 코드를 그대로 사용하는 대신 구조적 문제나 상태 관리 흐름을 직접 검토하고 수정하며 
+React 컴포넌트 설계에 대한 이해를 높일 수 있었습니다.
+또한 기능 구현 자체보다 사용자가 현재 상태를 쉽게 이해할 수 있는 인터랙션과 일관된 UI 경험을 설계하는 과정이 
+서비스 품질에 큰 영향을 준다는 점을 다시 확인할 수 있었습니다.
 
 ---
 
-## 🔗 Live Demo
-
-http://minimal-ecommerce-psi.vercel.app
-
-## 📌 Notes
+## Notes
 
 본 프로젝트는 개인 학습 및 포트폴리오 목적으로 제작되었습니다.
 상품 이미지 및 일부 상품 정보는 무신사(MUSINSA)의 공개 상품 페이지를 참고하여 사용하였으며, 모든 저작권은 원저작권자에게 있습니다.
