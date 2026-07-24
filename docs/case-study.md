@@ -42,6 +42,7 @@ Responsive UI 제작 경험
 React 상태 기반 인터랙션
         ↓
 디자인과 구현을 연결하는 역량
+```
 
 ## 3. Implementation Goal
 
@@ -119,6 +120,7 @@ Favorites or Cart
 수량 조정
         ↓
 관심 상품 또는 장바구니 추가
+```
 
 단순히 상세 정보를 보여주는 데 그치지 않고, 
 사용자가 선택한 옵션과 수량이 다음 행동에 반영되도록 구성했습니다.
@@ -154,6 +156,7 @@ Product Detail
 Favorites / Recently Viewed / Cart
         ↓
 Shared Context State
+```
 
 상품 상세에서 선택한 정보가 장바구니와 배지에 반영되고,
 다른 페이지로 이동해도 상태가 유지되도록 구성했습니다.
@@ -212,9 +215,10 @@ Product List / Carousel
 Product Card
         ↓
 Product Detail
+```
 
 공통 컴포넌트를 통해 상품 정보의 표현 방식을 일관되게 유지하고,
-새로운 상품이나 목록 영역이 추가 돼도 기존 구조를 활용할 수 있도록 했습니다.
+새로운 상품이나 목록 영역이 추가돼도 기존 구조를 활용할 수 있도록 했습니다.
 
 ### Performance Considerations
 
@@ -242,7 +246,7 @@ Product Detail
 
 ### Filter and Sort
 
-필터 버튼은 화면 폭에 따라 자연스럽게 줄바꿈 되도록 했으며,
+필터 버튼은 화면 폭에 따라 자연스럽게 줄바꿈되도록 했으며,
 정렬 기능은 모바일에서 화면 하단 바텀시트로 제공했습니다.
 
 ### Product Detail
@@ -262,6 +266,7 @@ Product Detail
 → 상세 확인
 → 옵션 선택
 → 관심 상품 또는 장바구니
+```
 
 <img
   src="../readme/responsive.png"
@@ -298,6 +303,7 @@ React 상태와 인터랙션 구현
 이 프로젝트는 프론트엔드 개발 역량 자체를 전면에 내세우기보다,
 설계한 UI를 실제로 동작하는 인터페이스로 구현하고 개발자와
 협업할 수 있는 기술적 이해를 확장했다는 점에 의미가 있습니다.
+```
 
 ### What I Learned
 
