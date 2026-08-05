@@ -890,3 +890,18 @@ button.active {
 
   opacity: 0.9;
 }
+
+@media (max-width: 768px) {
+  .detail-topbar.sticky-controls,
+  .cart-header.sticky-controls {
+    margin-top: -20px;
+    margin-inline: -20px;
+
+    padding-top: calc(12px + env(safe-area-inset-top));
+    padding-right: 20px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+
+    background: var(--bg);
+  }
+}
