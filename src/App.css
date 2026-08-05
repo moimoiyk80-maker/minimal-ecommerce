@@ -904,4 +904,7 @@ button.active {
 
     background: var(--bg);
   }
+  .header{
+    margin-top: -20px;
+  }
 }
