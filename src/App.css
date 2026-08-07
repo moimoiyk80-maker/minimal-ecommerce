@@ -960,7 +960,7 @@ button.active {
 }
 
 .cart-list {
-  margin-top: 24px;
+  margin-top: 12px;
 }
 
 .cart-item {
@@ -1032,7 +1032,7 @@ button.active {
   .cart-item:nth-child(2) {
     border-top: 1px solid var(--border);
   }
-  
+
   .theme-toggle{
     right:calc((100% - 1126px) / 2);  
   }
